@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>dotnet-Worker-7885E4E2-8625-41BB-9938-1F31CF38D3DE</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0-preview4.19216.2" />
+    <PackageReference Include="NServiceBus" Version="7.1.7" />
+    <PackageReference Include="NServiceBus.MSDependencyInjection" Version="0.1.4" />
+  </ItemGroup>
+</Project>
