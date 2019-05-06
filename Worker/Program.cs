@@ -20,7 +20,7 @@ namespace Worker
                 .ConfigureServices(services =>
                 {
                     var endpointConfiguration = new EndpointConfiguration("Worker");
-                    endpointConfiguration.UseTransport<LearningTransport>().StorageDirectory("../../../");
+                    endpointConfiguration.UseTransport<LearningTransport>();
                     endpointConfiguration.UseContainer<ServicesBuilder>(
                         customizations: customizations =>
                         {
