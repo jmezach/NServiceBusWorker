@@ -27,8 +27,9 @@ namespace Worker
                             customizations.ExistingServices(services);
                         });
 
-                    services.AddSingleton(Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult());
+                    services.AddSingleton(endpointConfiguration);
                     services.AddHostedService<Worker>();
+                    services.AddSingleton<IEndpointInstance>(sp => sp.GetRequiredService<Worker>().EndpointInstance);
                 });
     }
 }

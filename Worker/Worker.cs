@@ -10,26 +10,26 @@ using Worker.Messages;
 
 namespace Worker
 {
-    public class Worker : BackgroundService
+    public class Worker : IHostedService
     {
         private readonly ILogger<Worker> _logger;
-        private readonly IEndpointInstance _endpointInstance;
+        private readonly EndpointConfiguration _endpointConfiguration;
+        public IEndpointInstance EndpointInstance;
 
-        public Worker(ILogger<Worker> logger, IEndpointInstance endpointInstance)
+        public Worker(ILogger<Worker> logger, EndpointConfiguration endpointConfiguration)
         {
             _logger = logger;
-            _endpointInstance = endpointInstance;
+            _endpointConfiguration = endpointConfiguration;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                await _endpointInstance.SendLocal(new MyMessage());
+            EndpointInstance = await Endpoint.Start(_endpointConfiguration);
+        }
 
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1000, stoppingToken);
-            }
+        public async Task StopAsync(CancellationToken cancellationToken)
+        {
+            await EndpointInstance.Stop();
         }
     }
 }
